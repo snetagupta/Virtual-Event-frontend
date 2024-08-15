@@ -1,7 +1,9 @@
+import Signup from "./pages/Signup"
+
 const App =() =>{
   return(
     <div>
-      <h1 >Hello</h1>
+       < Signup/>
     </div>
   )
 }
