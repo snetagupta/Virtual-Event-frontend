@@ -1,17 +1,13 @@
 import { useState, useRef } from "react";
 
-const Signup = () => {
+const Login = () => {
   const [formDetail, SetFormDetail] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
-  let nameRef = useRef(null);
   let emailRef = useRef(null);
   let passwordRef = useRef(null);
-  let confirmPasswordRef = useRef(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -32,11 +28,10 @@ const Signup = () => {
     }
   }
 
-  function handleLoginClick(e) {
+  function handleSignupClick(e) {
     e.preventDefault();
-    console.log("login clicked")
-    // handle login click
-    
+    console.log("signup clicked")
+    // handle signup
   }
 
   function handleClick(e) {
@@ -47,32 +42,12 @@ const Signup = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+       
           <h2 className="text-2xl font-bold text-center mb-8 underline">
-            Sign up Page
+            Login
           </h2>
 
         <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                htmlFor="name"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Name
-              </label>
-
-              <input
-                type="text"
-                id="name"
-                name="name"
-                ref={nameRef}
-                value={formDetail.name}
-                onKeyUp={(event) => handleKeyPress(event, emailRef)}
-                onChange={handleOnChange}
-                placeholder="Name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
-
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -115,26 +90,6 @@ const Signup = () => {
             />
           </div>
 
-            <div className="mb-4">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-gray-700 font-semibold mb-2"
-              >
-                Confirm Password
-              </label>
-
-              <input
-                type="password"
-                id="conformPassword"
-                name="confirmPassword"
-                ref={confirmPasswordRef}
-                value={formDetail.confirmPassword}
-                onChange={handleOnChange}
-                placeholder="Confirm Password"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
-
           <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500 transition duration-300 ease-in-out">
             Submit
           </button>
@@ -155,13 +110,14 @@ const Signup = () => {
             </a>
           </div>
 
+
             <div className="flex justify-center">
               <a
                 href="#"
                 className="bg-gray-50 p-2 rounded-lg hover:bg-gray-200"
-                onClick={handleLoginClick}
+                onClick={handleSignupClick}
               >
-                Login
+                SignUp
               </a>
             </div>
 
@@ -171,4 +127,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
