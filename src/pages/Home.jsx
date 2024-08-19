@@ -1,13 +1,13 @@
 import Carousel from '../components/home/Carousel';
 import Navbar from '../components/common/Navbar';
+import Genre from '../components/home/Genre';
 
 const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className='flex p-5 gap-5 h-[50vh]'>
-          <Carousel />
-      </div>
+      <Carousel />
+      <Genre />
     </div>
   );
 };

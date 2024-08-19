@@ -2,6 +2,7 @@ import { Carousel } from '@material-tailwind/react';
 
 const CarouselComponent = () => {
   return (
+    <div className='flex p-3 md:p-5 gap-5 h-[50vh]'>
     <Carousel
       className='rounded-xl'
       navigation={({ setActiveIndex, activeIndex, length }) => (
@@ -34,6 +35,7 @@ const CarouselComponent = () => {
         className='h-full w-full object-cover'
       />
     </Carousel>
+    </div>
   );
 };
 
