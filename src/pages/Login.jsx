@@ -1,17 +1,53 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import * as yup from "yup"
 
-const Login = () => {
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+const Login =  () => {
+  const navigate = useNavigate()
   const [formDetail, SetFormDetail] = useState({
+    name:"",
+    username:"",
     email: "",
     password: "",
   });
 
+  let nameRef = useRef(null);
+  let usernameRef = useRef(null)
   let emailRef = useRef(null);
   let passwordRef = useRef(null);
 
-  function handleSubmit(e) {
+  const validationschema = yup.object({
+    name:yup.string().required("Name is Required"),
+    username:yup.string().required("UserName is Required"),
+    email:yup.string().email("Invalid Email Format").required("Email is Required"),
+    password:yup.string().required("Password is Required").min(8,"Password must be at least 8 character")
+    .matches(
+       /@/,
+      "Password must contain the '@' symbol"
+    )
+  })
+
+  async function handleSubmit(e) {
     e.preventDefault();
     console.log(formDetail);
+
+    try {
+      const response = await axios.post(`http://localhost:5000/api/user/signin`, formDetail)
+      if(response.status == 200){
+       // console.log("login done")
+       console.log(response.data)
+       localStorage.setItem("eventify_user",JSON.stringify(response.data.data))
+        // navigate to the home page
+        // navigate(/home)
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   function handleOnChange(e) {
@@ -32,6 +68,7 @@ const Login = () => {
     e.preventDefault();
     console.log("signup clicked")
     // handle signup
+    navigate("/signup")
   }
 
   function handleClick(e) {
@@ -48,6 +85,50 @@ const Login = () => {
           </h2>
 
         <form onSubmit={handleSubmit}>
+
+        <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Name
+            </label>
+
+            <input
+              type="name"
+              id="name"
+              name="name"
+              ref={nameRef}
+              value={formDetail.name}
+              onKeyUp={(event) => handleKeyPress(event, usernameRef)}
+              onChange={handleOnChange}
+              placeholder="Name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="username"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              UserName
+            </label>
+
+            <input
+              type="username"
+              id="username"
+              name="username"
+              ref={usernameRef}
+              value={formDetail.username}
+              onKeyUp={(event) => handleKeyPress(event, emailRef)}
+              onChange={handleOnChange}
+              placeholder="UserName"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            />
+          </div>
+
+
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -83,7 +164,7 @@ const Login = () => {
               name="password"
               ref={passwordRef}
               value={formDetail.password}
-              onKeyUp={(event) => handleKeyPress(event, confirmPasswordRef)}
+              onKeyUp={(event) => handleKeyPress(event, passwordRef)}
               onChange={handleOnChange}
               placeholder="Password"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"

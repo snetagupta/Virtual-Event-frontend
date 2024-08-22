@@ -1,21 +1,68 @@
 import { useState, useRef } from "react";
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 
 const Signup = () => {
+  const navigate = useNavigate()
+
+  const [errors, setErrors] = useState("")
   const [formDetail, SetFormDetail] = useState({
     name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
+
   });
 
   let nameRef = useRef(null);
+  let userNameRef = useRef(null);
   let emailRef = useRef(null);
   let passwordRef = useRef(null);
   let confirmPasswordRef = useRef(null);
 
-  function handleSubmit(e) {
+  const validationschema = yup.object({
+    name:yup.string().required("Name is Required"),
+    username:yup.string().required("UserName is Required"),
+    email:yup.string().email("Invalid Email Format").required("Email is Required"),
+    password:yup.string().required("Password is Required").min(8,"Password must be at least 8 character")
+    .matches(
+       /@/,
+      "Password must contain the '@' symbol"
+    ),
+    confirmPassword:yup.string().required("ConfirmPassword is Required").oneOf([yup.ref("password")],"Password must Match")
+  })
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formDetail);
+    console.log(formDetail, BACKEND_URL);
+
+   
+   try {
+
+     await validationschema.validate(formDetail,{abortEarly:false})
+     setErrors({})
+
+    const response = await axios.post(`http://localhost:5000/api/user/signup`, {
+      name:formDetail.name,
+      username:formDetail.username,
+      email:formDetail.email,
+      password:formDetail.password
+    })
+    if(response.status == 201){
+        navigate('/login')
+    }
+    console.log("successfully sign up" )
+   } catch (error) {
+       console.log(error.inner)
+      //   handle validation error here
+   }
+
   }
 
   function handleOnChange(e) {
@@ -36,6 +83,7 @@ const Signup = () => {
     e.preventDefault();
     console.log("login clicked")
     // handle login click
+    navigate("/login")
     
   }
 
@@ -66,11 +114,34 @@ const Signup = () => {
                 name="name"
                 ref={nameRef}
                 value={formDetail.name}
-                onKeyUp={(event) => handleKeyPress(event, emailRef)}
+                onKeyUp={(event) => handleKeyPress(event, userNameRef)}
                 onChange={handleOnChange}
                 placeholder="Name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
               />
+               {errors.name && <p className="text-red-500">{errors.name}</p>}
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="username"
+                className="block text-gray-700 font-semibold mb-2"
+              >
+                UserName
+              </label>
+
+              <input
+                type="text"
+                id="username"
+                name="username"
+                ref={userNameRef}
+                value={formDetail.username}
+                onKeyUp={(event) => handleKeyPress(event, emailRef)}
+                onChange={handleOnChange}
+                placeholder="UserName"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+              />
+               {errors.name && <p className="text-red-500">{errors.name}</p>}
             </div>
 
           <div className="mb-4">
@@ -90,8 +161,9 @@ const Signup = () => {
               onKeyUp={(event) => handleKeyPress(event, passwordRef)}
               onChange={handleOnChange}
               placeholder="Email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
             />
+             {errors.name && <p className="text-red-500">{errors.name}</p>}
           </div>
 
           <div className="mb-4">
@@ -111,8 +183,10 @@ const Signup = () => {
               onKeyUp={(event) => handleKeyPress(event, confirmPasswordRef)}
               onChange={handleOnChange}
               placeholder="Password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              // className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
             />
+             {errors.name && <p className="text-red-500">{errors.name}</p>}
           </div>
 
             <div className="mb-4">
@@ -131,11 +205,13 @@ const Signup = () => {
                 value={formDetail.confirmPassword}
                 onChange={handleOnChange}
                 placeholder="Confirm Password"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
               />
+               {errors.name && <p className="text-red-500">{errors.name}</p>}
             </div>
 
-          <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500 transition duration-300 ease-in-out">
+
+          <button className=" w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-500 transition duration-300 ease-in-out">
             Submit
           </button>
 
