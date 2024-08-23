@@ -1,24 +1,19 @@
-
-import Signup from "./pages/Signup"
-import Login from "./pages/Login"
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home"
+import Home from "./pages/Home";
+import LiveCard from "./components/LiveCard";
 
-const App =() =>{
-
-  return(
-
+const App = () => {
+  return (
     <BrowserRouter>
-    <Routes>
-      
+      <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
-    
-    </Routes>
-  </BrowserRouter>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-  )
-}
-
-export default App
+export default App;
