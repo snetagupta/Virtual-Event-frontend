@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import LiveCard from "./components/LiveCard";
 import Events from "./pages/Events";
 import EventContact from "./components/EventContact";
+import Event from "./pages/Event";
 
 
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/event" element={<Events/>} />
+        <Route path="/event" element={<Event/>} />
         <Route path="/contact" element={<EventContact/>} />
       </Routes>
     </BrowserRouter>
