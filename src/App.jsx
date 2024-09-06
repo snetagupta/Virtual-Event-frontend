@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="/events" element={<Events />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/event" element={<Events/>} />
         <Route path="/contact" element={<EventContact/>} />
@@ -22,6 +23,5 @@ const App = () => {
     </BrowserRouter>
   );
 };
-
 
 export default App;
