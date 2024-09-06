@@ -1,26 +1,27 @@
-
-import Signup from "./pages/Signup"
-import Login from "./pages/Login"
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home"
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import LiveCard from "./components/LiveCard";
 import Events from "./pages/Events";
+import EventContact from "./components/EventContact";
 
-const App =() =>{
 
-  return(
-
+const App = () => {
+  return (
     <BrowserRouter>
-    <Routes>
-      
+      <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
-    
-    </Routes>
-  </BrowserRouter>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/event" element={<Events/>} />
+        <Route path="/contact" element={<EventContact/>} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-  )
-}
-
-export default App
+export default App;

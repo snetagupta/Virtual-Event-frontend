@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import TextInput from '../components/inputs/TextInput';
@@ -288,6 +289,16 @@ const Events = () => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+import EventSection from "../components/events/EventSection";
+
+const Events = () => {
+  return (
+    <div>
+      <EventSection />
     </div>
   );
 };
