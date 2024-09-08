@@ -1,25 +1,55 @@
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
-import LiveCard from "./components/LiveCard";
-import Events from "./pages/Events";
-import EventContact from "./components/EventContact";
-import Event from "./pages/Event";
-
+import Signup from './pages/Signup';
+import Login from './pages/Login';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
+import LiveCard from './components/LiveCard';
+import Events from './pages/Events';
+import EventContact from './components/EventContact';
+import Event from './pages/Event';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/event" element={<Event/>} />
-        <Route path="/contact" element={<EventContact/>} />
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+
+        {/* Protected routes */}
+        <Route
+          path='/events'
+          element={
+            <ProtectedRoute>
+              <Events />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/dashboard'
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/event'
+          element={
+            <ProtectedRoute>
+              <Event />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/contact'
+          element={
+            <ProtectedRoute>
+              <EventContact />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

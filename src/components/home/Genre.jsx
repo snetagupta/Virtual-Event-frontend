@@ -11,14 +11,16 @@ import { PiMagicWandLight } from 'react-icons/pi';
 
 const GenreCard = ({ Icon, label }) => {
   return (
-    <div className='p-5 border border-gray-200 flex flex-col gap-2 items-center'>
-      <div className='text-5xl md:text-7xl'>
+    <div className="p-5 border-2 rounded-lg border-gray-200 flex flex-col gap-2 items-center transition-all duration-300 transform hover:-translate-y-2 hover:border-primary cursor-pointer">
+      <div className="text-5xl md:text-7xl">
         <Icon />
       </div>
-      <p className='text-lg md:text-xl'>{label}</p>
+      <p className="text-lg md:text-xl">{label}</p>
     </div>
   );
 };
+
+
 
 const Genre = () => {
   const genres = [
