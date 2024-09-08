@@ -4,8 +4,10 @@ import axios from 'axios';
 import * as yup from 'yup';
 import { FcGoogle } from 'react-icons/fc';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import { Spinner } from "@material-tailwind/react";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [formDetail, SetFormDetail] = useState({
     email: '',
@@ -31,21 +33,23 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formDetail);
-
     try {
+      setLoading(true);
       const response = await axios.post(
-        `${BACKEND_URL}/api/user/signin`, formDetail
+        `${BACKEND_URL}/api/user/signin`,
+        formDetail
       );
       if (response.status == 200) {
         localStorage.setItem(
           'eventify_user',
           JSON.stringify(response.data.data)
         );
-        navigate('/');
+        // navigate('/');
       }
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   }
 
@@ -78,14 +82,12 @@ const Login = () => {
   return (
     <div className='h-screen w-full flex flex-col md:flex-row justify-center items-center'>
       {/* Login Form Container */}
-      <div className='w-full md:w-[40%] lg:w-[30%] h-[60%] md:h-[70%] '>
-        <div className='bg-white p-8 shadow-lg w-full h-full'>
-          <h2 className='text-2xl font-bold text-center mb-8 text-[#f05537]'>
-            Login
-          </h2>
+      <div className='w-full h-full md:w-[40%] lg:w-[30%] md:h-[70%]'>
+        <div className=' p-8 shadow-lg w-full h-full flex md:block flex-col mt-28 md:mt-0'>
+          <h2 className='text-2xl font-bold text-center mb-8 '>Login</h2>
 
-          <form onSubmit={handleSubmit}>
-            <div className='mb-4'>
+          <form onSubmit={handleSubmit} className=''>
+            <div className='mb-4 '>
               <label
                 htmlFor='email'
                 className='block text-gray-700 font-semibold mb-2'
@@ -125,17 +127,17 @@ const Login = () => {
               />
             </div>
 
-            <button className='w-full bg-primary text-white py-2 rounded-lg hover:bg-deep-orange-800 transition duration-300 ease-in-out'>
-              Submit
+            <button className='w-full bg-primary text-white py-2 rounded-lg hover:bg-deep-orange-800 transition duration-300 ease-in-out flex items-center justify-center' disabled={loading}>
+              {loading ? <Spinner/> : 'Login'}
             </button>
 
             <hr className='border-gray-300 my-4' />
 
             <div>
-              <button className='flex items-center justify-center gap-3 border border-gray-300 px-3 py-2 w-full transition duration-300 ease-in-out hover:border-blue-800'>
+              <div className='flex items-center justify-center gap-3 border border-gray-300 px-3 py-2 w-full transition duration-300 ease-in-out hover:border-blue-800'>
                 <FcGoogle className='text-2xl' />
-                <p>Sign Up with Google</p>
-              </button>
+                <p>Login with Google</p>
+              </div>
               <div className='text-[14px] flex justify-between mt-5 text-blue-600'>
                 <NavLink to={'/forgotpassword'}>Forgot Your Password?</NavLink>
                 <NavLink to={'/signup'}>Dont Have an Account? </NavLink>
@@ -146,7 +148,7 @@ const Login = () => {
       </div>
 
       {/* Image Section */}
-      <div className='w-full md:w-[40%] lg:w-[30%] h-[30%] md:h-[70%] bg-yellow-500'>
+      <div className='w-full hidden md:block md:w-[40%] lg:w-[30%] h-[30%] md:h-[70%]  bg-yellow-500'>
         <img
           className='w-full h-full object-cover'
           src='https://images.pexels.com/photos/6347968/pexels-photo-6347968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
