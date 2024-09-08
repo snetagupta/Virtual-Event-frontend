@@ -8,6 +8,8 @@ const SideNavbar = ({ open, setOpen }) => {
       setOpen(false);
     }
   };
+  const tagStyle =
+  ' py-1 px-3 cursor-pointer text-base';
 
   return (
     <div
@@ -23,17 +25,17 @@ const SideNavbar = ({ open, setOpen }) => {
         }`}
       >
         <div className='flex justify-between'>
-          <p className='text-2xl font-bold'>EventX</p>
+          <p className='text-2xl font-bold text-primary'>Eventify</p>
           <div className='text-2xl cursor-pointer' onClick={() => setOpen(false)}>
             <IoMdClose />
           </div>
         </div>
         <hr className='mb-10' />
         <div className='flex flex-col text-lg gap-2'>
-          <nav>Popular Event</nav>
-          <nav>Free Events</nav>
-          <nav>Today's Events</nav>
-          <nav>List your Events</nav>
+        <p className={tagStyle}>Upcoming Events</p>
+            <p className={tagStyle}>Today's Events</p>
+          
+            <p className={tagStyle}>About us</p>
         </div>
       </div>
     </div>
