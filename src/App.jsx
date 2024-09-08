@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import EventContact from './components/EventContact';
 import Event from './pages/Event';
 import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './components/Profile';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<Profile/>} />
 
         {/* Protected routes */}
         <Route
