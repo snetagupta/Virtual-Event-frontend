@@ -9,6 +9,7 @@ import EventContact from './components/EventContact';
 import Event from './pages/Event';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
+import Ticket from './components/Ticket';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile/>} />
+        <Route path='/ticket' element={<Ticket/>} />
 
         {/* Protected routes */}
         <Route
