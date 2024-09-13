@@ -1,159 +1,159 @@
-import { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { Spinner } from '@material-tailwind/react';
 import axios from 'axios';
 import * as yup from 'yup';
-import { FcGoogle } from 'react-icons/fc';
+
+// Backend URL from environment
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-import { Spinner } from "@material-tailwind/react";
+
+// Yup validation schema
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email('Invalid Email Format')
+    .required('Email is Required'),
+  password: yup
+    .string()
+    .required('Password is Required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(/@/, "Password must contain the '@' symbol"),
+});
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const [formDetail, SetFormDetail] = useState({
+  const [formDetail, setFormDetail] = useState({
     email: '',
     password: '',
   });
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-  let emailRef = useRef(null);
-  let passwordRef = useRef(null);
+  // Handle input change
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFormDetail((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const validationschema = yup.object({
-    name: yup.string().required('Name is Required'),
-    username: yup.string().required('UserName is Required'),
-    email: yup
-      .string()
-      .email('Invalid Email Format')
-      .required('Email is Required'),
-    password: yup
-      .string()
-      .required('Password is Required')
-      .min(8, 'Password must be at least 8 character')
-      .matches(/@/, "Password must contain the '@' symbol"),
-  });
-
-  async function handleSubmit(e) {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      // Validate the form with Yup schema
+      await validationSchema.validate(formDetail, { abortEarly: false });
       setLoading(true);
-      const response = await axios.post(
-        `${BACKEND_URL}/api/user/signin`,
-        formDetail
-      );
-      if (response.status == 200) {
-        localStorage.setItem(
-          'eventify_user',
-          JSON.stringify(response.data.data)
-        );
-        // navigate('/');
+
+      const response = await axios.post(`${BACKEND_URL}/api/user/signin`, formDetail);
+
+      if (response.status === 200) {
+        localStorage.setItem('eventify_user', JSON.stringify(response.data.data));
+        navigate('/');
       }
     } catch (error) {
-      console.log(error);
-    }finally{
+      if (error.inner) {
+        // Catch validation errors from Yup
+        const validationErrors = {};
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message;
+        });
+        setErrors(validationErrors);
+      } else {
+        console.error(error);
+      }
+    } finally {
       setLoading(false);
     }
-  }
-
-  function handleOnChange(e) {
-    e.preventDefault();
-    const name = e.target.name;
-    const value = e.target.value;
-
-    SetFormDetail({ ...formDetail, [name]: value });
-  }
-
-  function handleKeyPress(event, nextref) {
-    if (event.key == 'Enter') {
-      nextref.current.focus();
-    }
-  }
-
-  function handleSignupClick(e) {
-    e.preventDefault();
-    console.log('signup clicked');
-    // handle signup
-    navigate('/signup');
-  }
-
-  function handleClick(e) {
-    e.preventDefault();
-    // handle signup with google
-  }
+  };
 
   return (
-    <div className='h-screen w-full flex flex-col md:flex-row justify-center items-center'>
-      {/* Login Form Container */}
-      <div className='w-full h-full md:w-[40%] lg:w-[30%] md:h-[70%]'>
-        <div className=' p-8 shadow-lg w-full h-full flex md:block flex-col mt-28 md:mt-0'>
-          <h2 className='text-2xl font-bold text-center mb-8 '>Login</h2>
+    <div className='flex justify-center items-center h-screen'>
+      <div className='w-[400px] p-5 flex flex-col gap-8 rounded-lg shadow-md'>
+        <div className='flex justify-center flex-col items-center'>
+          <h2 className='text-3xl font-semibold'>Welcome back</h2>
+          <p className='font-thin text-gray-800'>
+            Please enter your credentials to login
+          </p>
+        </div>
 
-          <form onSubmit={handleSubmit} className=''>
-            <div className='mb-4 '>
-              <label
-                htmlFor='email'
-                className='block text-gray-700 font-semibold mb-2'
-              >
-                Email
-              </label>
-              <input
-                type='email'
-                id='Email'
-                name='email'
-                ref={emailRef}
-                value={formDetail.email}
-                onKeyUp={(event) => handleKeyPress(event, passwordRef)}
-                onChange={handleOnChange}
-                placeholder='Email'
-                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500'
-              />
-            </div>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
+          <div className='flex flex-col gap-1 relative'>
+            <label className='text-[16px] font-semibold text-gray-700'>
+              Email
+            </label>
+            <input
+              type='text'
+              name='email'
+              value={formDetail.email}
+              onChange={handleOnChange}
+              className={`border border-gray-300 h-10 rounded-lg px-1 outline-none ${
+                errors.email ? 'border-red-500' : ''
+              }`}
+              placeholder='Enter your email'
+            />
+            <div className='absolute bottom-[-22px]'>{errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}</div>
+          </div>
 
-            <div className='mb-4'>
-              <label
-                htmlFor='password'
-                className='block text-gray-700 font-semibold mb-2'
-              >
+          <div className='flex flex-col gap-1 relative'>
+            <div className='flex justify-between text-sm'>
+              <label className='text-[16px] font-semibold text-gray-700'>
                 Password
               </label>
-              <input
-                type='password'
-                id='Password'
-                name='password'
-                ref={passwordRef}
-                value={formDetail.password}
-                onKeyUp={(event) => handleKeyPress(event, passwordRef)}
-                onChange={handleOnChange}
-                placeholder='Password'
-                className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500'
-              />
+              <NavLink to='/forgot-password' className={"text-blue-600"}>Forgot Password?</NavLink>
+            </div>
+            <input
+              type='password'
+              name='password'
+              value={formDetail.password}
+              onChange={handleOnChange}
+              className={`border border-gray-300 h-10 rounded-lg px-1 outline-none ${
+                errors.password ? 'border-red-500' : ''
+              }`}
+              placeholder='Enter your password'
+            />
+            <div className='absolute bottom-[-22px]'>
+            {errors.password && <p className='text-red-500 text-sm'>{errors.password}</p>}
+            </div>
+          </div>
+
+          <div className='flex flex-col gap-2'>
+            <div className='flex gap-2 ml-2'>
+              <input type='checkbox' name='remember' id='' className='w-4' />
+              <label htmlFor='' className='text-[16px] font-thin'>
+                Remember me
+              </label>
             </div>
 
-            <button className='w-full bg-primary text-white py-2 rounded-lg hover:bg-deep-orange-800 transition duration-300 ease-in-out flex items-center justify-center' disabled={loading}>
-              {loading ? <Spinner/> : 'Login'}
+            <button
+              type='submit'
+              className='w-full bg-primary text-white py-2 rounded-lg hover:bg-deep-orange-800 transition duration-300 ease-in-out flex items-center justify-center'
+              disabled={loading}
+            >
+              {loading ? <Spinner color='white' /> : 'Login'}
             </button>
+          </div>
 
-            <hr className='border-gray-300 my-4' />
+          <div className='flex items-center justify-between'>
+            <hr className='flex-grow border-gray-300' />
+            <p className='px-4 text-gray-500'>OR</p>
+            <hr className='flex-grow border-gray-300' />
+          </div>
+        </form>
 
-            <div>
-              <div className='flex items-center justify-center gap-3 border border-gray-300 px-3 py-2 w-full transition duration-300 ease-in-out hover:border-blue-800'>
-                <FcGoogle className='text-2xl' />
-                <p>Login with Google</p>
-              </div>
-              <div className='text-[14px] flex justify-between mt-5 text-blue-600'>
-                <NavLink to={'/forgotpassword'}>Forgot Your Password?</NavLink>
-                <NavLink to={'/signup'}>Dont Have an Account? </NavLink>
-              </div>
-            </div>
-          </form>
+        <button className='w-full text-white py-2 rounded-lg transition duration-300 ease-in-out flex items-center justify-center gap-2 border h-10'>
+          <FcGoogle className='text-[23px]' />
+          <p className='text-black'>Login with Google</p>
+        </button>
+
+        <div className='flex items-center justify-center text-sm'>
+          <p>
+            Don't have an account?{' '}
+            <NavLink to='/signup' className='text-blue-600'>
+              Register
+            </NavLink>
+          </p>
         </div>
-      </div>
-
-      {/* Image Section */}
-      <div className='w-full hidden md:block md:w-[40%] lg:w-[30%] h-[30%] md:h-[70%]  bg-yellow-500'>
-        <img
-          className='w-full h-full object-cover'
-          src='https://images.pexels.com/photos/6347968/pexels-photo-6347968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-          alt='Login Illustration'
-        />
       </div>
     </div>
   );
