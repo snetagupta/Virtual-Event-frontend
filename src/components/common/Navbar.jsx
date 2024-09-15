@@ -6,10 +6,9 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const tagStyle =
-    ' py-1 px-3 cursor-pointer text-base';
-    const navigate = useNavigate();
-
+  const tagStyle = ' py-1 px-3 cursor-pointer text-base';
+  const navigate = useNavigate();
+  const user = localStorage.getItem('eventify_user');
   return (
     <>
       <div className='flex items-center justify-between px-3 py-4 md:px-8 border-b-2'>
@@ -42,9 +41,24 @@ const Navbar = () => {
               className='hidden md:flex bg-gray-100 text-black w-full border-none outline-none'
             />
           </div>
-          <button className='bg-primary text-white py-2 px-3 md:px-4 rounded-md text-sm md:text-base whitespace-nowrap' onClick={()=>navigate("/login")}>
-            Log In
-          </button>
+          <div>
+            {user ? (
+              <div className='w-10 h-10'>
+                <img
+                  src='https://cdn3.pixelcut.app/1/3/profile_picture_1728ecf2bd.jpg'
+                  alt=''
+                  className='w-full h-full rounded-full ring-2 ring-primary object-cover'
+                />
+              </div>
+            ) : (
+              <button
+                className='bg-primary text-white py-2 px-3 md:px-4 rounded-md text-sm md:text-base whitespace-nowrap'
+                onClick={() => navigate('/login')}
+              >
+                Log In
+              </button>
+            )}
+          </div>
         </div>
       </div>
       <SideNavbar open={open} setOpen={setOpen} />

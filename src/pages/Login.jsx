@@ -7,6 +7,7 @@ import * as yup from 'yup';
 
 // Backend URL from environment
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const GOOGLE_CALLBACK_URL = import.meta.env.VITE_GOOGLE_CALLBACK_URL;
 
 // Yup validation schema
 const validationSchema = yup.object({
@@ -65,6 +66,10 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const googleAuth = () => {
+    window.open(GOOGLE_CALLBACK_URL, "_self");
   };
 
   return (
@@ -141,7 +146,7 @@ const Login = () => {
           </div>
         </form>
 
-        <button className='w-full text-white py-2 rounded-lg transition duration-300 ease-in-out flex items-center justify-center gap-2 border h-10'>
+        <button className='w-full text-white py-2 rounded-lg transition duration-300 ease-in-out flex items-center justify-center gap-2 border h-10' onClick={googleAuth}>
           <FcGoogle className='text-[23px]' />
           <p className='text-black'>Login with Google</p>
         </button>

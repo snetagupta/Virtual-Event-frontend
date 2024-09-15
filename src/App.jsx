@@ -10,6 +10,7 @@ import Event from './pages/Event';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './components/Profile';
 import Ticket from './components/Ticket';
+import GoogleAuth from './pages/GoogleAuth';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/auth/google/callback' element={<GoogleAuth />} />
         <Route path='/profile' element={<Profile/>} />
         <Route path='/ticket' element={<Ticket/>} />
 
