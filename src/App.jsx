@@ -12,6 +12,7 @@ import Profile from './components/Profile';
 import Ticket from './components/Ticket';
 import GoogleAuth from './pages/GoogleAuth';
 import EventDetails from './pages/EventDetails';
+import Checkout from './pages/Checkout';
 
 const App = () => {
   return (
@@ -38,6 +39,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <EventDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/checkout'
+          element={
+            <ProtectedRoute>
+              <Checkout />
             </ProtectedRoute>
           }
         />

@@ -17,8 +17,8 @@ const EventInfo = () => {
   };
 
   return (
-    <div className='container mx-auto px-4 py-10'>
-      <div className='flex flex-wrap'>
+    <div className='container mx-auto px-4 pb-10'>
+      <div className='flex overflow-scroll'>
         {Object.keys(sections).map(section => (
           <button
             key={section}

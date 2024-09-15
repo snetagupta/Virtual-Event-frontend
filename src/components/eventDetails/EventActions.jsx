@@ -7,7 +7,7 @@ import { CiLocationOn } from "react-icons/ci";
 const EventActions = () => {
   return (
     <div className='mx-4 md:mx-16 rounded-md flex flex-col md:flex-row justify-between items-center md:items-start mt-5'>
-      <div className='flex flex-col md:flex-row gap-4 mb-4 md:mb-0'>
+      <div className='flex md:justify-normal justify-between gap-4 mb-4 md:mb-0 w-full'>
         <button className='text-white bg-primary px-4 py-2 rounded-md transition duration-200'>
           Add to Watchlist
         </button>
@@ -15,8 +15,8 @@ const EventActions = () => {
           Share
         </button>
       </div>
-      <div className='flex flex-col md:flex-row gap-4'>
-        <div className='flex  gap-2'>
+      <div className='flex overflow-scroll w-full gap-4'>
+        <div className='flex flex-1  gap-2'>
           <FcLike className='text-2xl' />
           <div>
             <p className='text-md font-semibold'>90%</p>
