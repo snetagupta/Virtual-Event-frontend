@@ -3,9 +3,11 @@ import { HiMenu } from 'react-icons/hi';
 import { useState } from 'react';
 import SideNavbar from './SideNavbar';
 import { useNavigate } from 'react-router-dom';
+import ProfileMenu from './ProfileMenu';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [showProfileMenu, setShowPofileMenu] = useState(false);
   const tagStyle = ' py-1 px-3 cursor-pointer text-base';
   const navigate = useNavigate();
   const user = localStorage.getItem('eventify_user');
@@ -47,7 +49,8 @@ const Navbar = () => {
                 <img
                   src='https://cdn3.pixelcut.app/1/3/profile_picture_1728ecf2bd.jpg'
                   alt=''
-                  className='w-full h-full rounded-full ring-2 ring-primary object-cover'
+                  className='w-full h-full rounded-full ring-2 ring-primary object-cover cursor-pointer'
+                  onClick={() => setShowPofileMenu((prev) => !prev)}
                 />
               </div>
             ) : (
@@ -62,6 +65,7 @@ const Navbar = () => {
         </div>
       </div>
       <SideNavbar open={open} setOpen={setOpen} />
+      <ProfileMenu open={showProfileMenu} setOpen={setShowPofileMenu} />
     </>
   );
 };
