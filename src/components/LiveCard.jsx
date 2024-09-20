@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import liveImg from "../data/liveImg";
+import { MdLiveTv } from "react-icons/md";
 
 const LiveCard = () => {
   const sliderRef = useRef(null);
@@ -67,7 +68,13 @@ const LiveCard = () => {
 
   return (
     <div className="p-4">
-      <p className="px-3 py-2 text-xl sm:text-2xl font-semibold">The Best of Live Events</p>
+      <div className="flex items-center gap-5 px-3 py-2 mb-10 ml-3">
+        < MdLiveTv className='text-4xl' />
+        <div>
+      <p className=" text-xl sm:text-2xl font-semibold text-gray-800" >The Best of Live Events</p>
+      <p className='text-base text-gray-600'>Watch new movies at home every Friday</p>
+      </div>
+      </div>
       <div className="relative">
         <button
           className="custom-prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 shadow-md p-2 rounded-full z-10"

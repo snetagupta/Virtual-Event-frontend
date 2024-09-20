@@ -7,15 +7,18 @@ import { FaRegLaughSquint } from 'react-icons/fa';
 import { IoGameControllerOutline } from 'react-icons/io5';
 import { CiMicrophoneOn } from 'react-icons/ci';
 import { PiMagicWandLight } from 'react-icons/pi';
+import { SiEventstore } from "react-icons/si";
 
 
 const GenreCard = ({ Icon, label }) => {
   return (
+    <div>
     <div className="p-5 border-2 rounded-lg border-gray-200 flex flex-col gap-2 items-center transition-all duration-300 transform hover:-translate-y-2 hover:border-primary cursor-pointer">
       <div className="text-5xl md:text-7xl">
         <Icon />
       </div>
       <p className="text-lg md:text-xl">{label}</p>
+    </div>
     </div>
   );
 };
@@ -35,10 +38,21 @@ const Genre = () => {
   ];
 
   return (
+    <div className=' '>
+      <div className='flex gap-5 items-center pl-8 mt-10 ml-3'>
+        <div className='text-4xl '>
+          <SiEventstore />
+        </div>
+        <div>
+          <p className='text-xl font-semibold text-gray-800 uppercase'>Genre</p>
+          <p className='text-base text-gray-600'>Watch new movies at home every Friday</p>
+        </div>
+      </div>
     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-3 md:p-8'>
       {genres.map((genre, index) => (
         <GenreCard key={index} Icon={genre.Icon} label={genre.label} />
       ))}
+    </div>
     </div>
   );
 };

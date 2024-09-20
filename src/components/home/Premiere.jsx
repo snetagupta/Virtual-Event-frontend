@@ -46,12 +46,12 @@ const Premiere = () => {
   return (
     <div className=' bg-gray-50 p-3 md:p-8'>
       <div className='flex gap-5 items-center mb-10 ml-3'>
-        <div className='text-7xl '>
+        <div className='text-4xl '>
           <FaVideo />
         </div>
         <div>
-          <p className='text-3xl font-semibold text-gray-800'>PREMIERE</p>
-          <p className='text-lg text-gray-600'>Watch new movies at home every Friday</p>
+          <p className='text-xl font-semibold text-gray-800'>PREMIERE</p>
+          <p className='text-base text-gray-600'>Watch new movies at home every Friday</p>
         </div>
       </div>
       <div className='flex flex-wrap justify-between gap-4 w-full'>
