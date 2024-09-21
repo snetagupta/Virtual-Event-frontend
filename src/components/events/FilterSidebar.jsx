@@ -1,211 +1,100 @@
-import { useState } from 'react';
-
-const FilterSidebar = ({ onFilterChange }) => {
-  const [locationType, setLocationType] = useState('online');
-  const [location, setLocation] = useState('');
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [time, setTime] = useState('');
-  const [category, setCategory] = useState('');
-  const [genre, setGenre] = useState('');
-
-  const locations = [
-    'Youtube',
-    'Mumbai Art Gallery',
-    'Goa Beach',
-    'Bangalore Tech Park',
-    'Delhi Food Court',
-    'Rishikesh',
-    'Shimla Hills',
-    'Chennai Auditorium',
-    'Kolkata Book Hub',
-    'Hyderabad IT Hub',
-  ];
-
-  const genres = [
-    'Comedy',
-    'Music',
-    'Tech',
-    'Food',
-    'Yoga',
-    'Photography',
-    'Dance',
-    'Books',
-    'Coding',
-  ];
-
-  const handleFilterChange = () => {
-    onFilterChange({
-      locationType,
-      location,
-      fromDate,
-      toDate,
-      minPrice,
-      maxPrice,
-      time,
-      category,
-      genre,
-    });
-  };
-
+const FilterSidebar = () => {
   return (
-    <div className="p-4 bg-white rounded-xl shadow-lg">
-      {/* Location Type */}
+    <div className="bg-white p-4 shadow-lg rounded-lg">
+      {/* Category Filter */}
       <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Location Type</label>
-        <select
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          value={locationType}
-          onChange={(e) => {
-            setLocationType(e.target.value);
-            handleFilterChange();
-          }}
-        >
-          <option value="online">Online</option>
-          <option value="offline">Offline</option>
+        <label className="block mb-2 font-medium">Category</label>
+        <select className="w-full p-2 border border-gray-300 rounded-lg">
+          <option value="">All Categories</option>
+          <option value="music">Music</option>
+          <option value="sports">Sports</option>
+          <option value="tech">Tech</option>
+          <option value="comedy">Comedy</option>
+          <option value="education">Education</option>
         </select>
       </div>
 
-      {/* Location */}
+      {/* Date Filter */}
       <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Location</label>
+        <label className="block mb-2 font-medium">Date</label>
+        <input type="date" className="w-full p-2 border border-gray-300 rounded-lg" />
+      </div>
+
+      {/* Location Filter */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Location</label>
+        <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter location" />
+      </div>
+
+      {/* Price Range Filter */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Price Range</label>
+        <div className="flex justify-between">
+          <input
+            type="number"
+            className="w-1/2 p-2 border border-gray-300 rounded-lg"
+            placeholder="Min Price"
+          />
+          <span className="mx-2">-</span>
+          <input
+            type="number"
+            className="w-1/2 p-2 border border-gray-300 rounded-lg"
+            placeholder="Max Price"
+          />
+        </div>
+      </div>
+
+      {/* Performer Search */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Search by Performer</label>
         <input
           type="text"
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          placeholder="Type location"
-          value={location}
-          onChange={(e) => {
-            setLocation(e.target.value);
-            handleFilterChange();
-          }}
-          list="locations"
-        />
-        <datalist id="locations">
-          {locations.map((loc, index) => (
-            <option key={index} value={loc} />
-          ))}
-        </datalist>
-      </div>
-
-      {/* Date Range */}
-      <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Date Range</label>
-        <div className="flex justify-between">
-          <input
-            type="date"
-            className="w-[48%] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-            value={fromDate}
-            onChange={(e) => {
-              setFromDate(e.target.value);
-              handleFilterChange();
-            }}
-          />
-          <input
-            type="date"
-            className="w-[48%] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-            value={toDate}
-            onChange={(e) => {
-              setToDate(e.target.value);
-              handleFilterChange();
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Price Range */}
-      <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Price Range</label>
-        <div className="flex justify-between">
-          <input
-            type="number"
-            className="w-[48%] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-            placeholder="Min"
-            value={minPrice}
-            onChange={(e) => {
-              setMinPrice(e.target.value);
-              handleFilterChange();
-            }}
-          />
-          <input
-            type="number"
-            className="w-[48%] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-            placeholder="Max"
-            value={maxPrice}
-            onChange={(e) => {
-              setMaxPrice(e.target.value);
-              handleFilterChange();
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Time */}
-      <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Time</label>
-        <input
-          type="time"
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          value={time}
-          onChange={(e) => {
-            setTime(e.target.value);
-            handleFilterChange();
-          }}
+          className="w-full p-2 border border-gray-300 rounded-lg"
+          placeholder="Enter performer's name"
         />
       </div>
 
-      {/* Category */}
+      {/* Audience Type Filter */}
       <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Category</label>
-        <select
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          value={category}
-          onChange={(e) => {
-            setCategory(e.target.value);
-            handleFilterChange();
-          }}
-        >
-          <option value="">Select category</option>
-          <option value="Art">Art</option>
-          <option value="Music">Music</option>
-          <option value="Tech">Tech</option>
-          <option value="Food">Food</option>
-          <option value="Yoga">Yoga</option>
-          <option value="Photography">Photography</option>
-          <option value="Dance">Dance</option>
-          <option value="Books">Books</option>
-          <option value="Coding">Coding</option>
+        <label className="block mb-2 font-medium">Audience Type</label>
+        <select className="w-full p-2 border border-gray-300 rounded-lg">
+          <option value="">Select Audience</option>
+          <option value="child">Child</option>
+          <option value="teen">Teen</option>
+          <option value="adult">Adult</option>
         </select>
       </div>
 
-      {/* Genre */}
+      {/* Event Type Filter */}
       <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">Genre</label>
-        <select
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-          value={genre}
-          onChange={(e) => {
-            setGenre(e.target.value);
-            handleFilterChange();
-          }}
-        >
-          <option value="">Select genre</option>
-          {genres.map((gen, index) => (
-            <option key={index} value={gen}>
-              {gen}
-            </option>
-          ))}
+        <label className="block mb-2 font-medium">Event Type</label>
+        <select className="w-full p-2 border border-gray-300 rounded-lg">
+          <option value="">All Types</option>
+          <option value="virtual">Virtual</option>
+          <option value="onsite">On-site</option>
+          <option value="hybrid">Hybrid</option>
         </select>
       </div>
 
-      {/* Apply Filters Button */}
-      <button
-        className="w-full bg-primary hover:bg-orange-600 text-white font-semibold p-2 rounded-md transition-colors"
-        onClick={handleFilterChange}
-      >
-        Apply Filters
-      </button>
+      {/* Popularity Filter */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Popularity</label>
+        <select className="w-full p-2 border border-gray-300 rounded-lg">
+          <option value="">All</option>
+          <option value="popular">Most Popular</option>
+          <option value="new">New Arrivals</option>
+        </select>
+      </div>
+
+      {/* Ticket Availability Filter */}
+      <div className="mb-4">
+        <label className="block mb-2 font-medium">Ticket Availability</label>
+        <select className="w-full p-2 border border-gray-300 rounded-lg">
+          <option value="">Any</option>
+          <option value="available">Available</option>
+          <option value="soldout">Sold Out</option>
+        </select>
+      </div>
     </div>
   );
 };

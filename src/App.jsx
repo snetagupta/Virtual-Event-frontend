@@ -27,7 +27,7 @@ const App = () => {
 
         {/* Protected routes */}
         <Route
-          path='/events'
+          path='/event'
           element={
             <ProtectedRoute>
               <Events />
@@ -59,7 +59,7 @@ const App = () => {
           }
         />
         <Route
-          path='/event'
+          path='/events'
           element={
             <ProtectedRoute>
               <Event />

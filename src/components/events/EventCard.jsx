@@ -8,16 +8,20 @@ const Eventcard = ({ event }) => {
   const [buy, setBuy] = useState(false);
 
   return (
-    <div className="w-[330px] h-[430px] border relative rounded-2xl hover:shadow-lg overflow-hidden flex flex-col">
+    <div className="w-full sm:w-[330px] h-[450px] border relative rounded-2xl hover:shadow-lg overflow-hidden flex flex-col transition-all">
       {/* Image Section */}
-      <img src={event.image} className="w-full h-[250px] object-cover" />
+      <img
+        src={event.image}
+        alt={event.title}
+        className="w-full h-[200px] sm:h-[250px] object-cover"
+      />
 
       {/* Event Details */}
-      <div className="p-2 flex-1">
-        <p className="font-semibold text-base text-black mb-2">
+      <div className="p-4 flex-1">
+        <p className="font-semibold text-base sm:text-lg text-black mb-2">
           {event?.title?.length > 40 ? event?.title?.slice(0, 37) + "..." : event.title}
         </p>
-        <div className="flex justify-between">
+        <div className="flex justify-between text-sm sm:text-base">
           <div className="flex flex-col gap-2">
             <div className="flex items-center">
               <CiLocationOn />
@@ -42,7 +46,7 @@ const Eventcard = ({ event }) => {
       </div>
 
       {/* Buttons Section */}
-      <div className="mt-auto p-3 bg-orange-50 flex justify-between items-center font-semibold text-base uppercase">
+      <div className="mt-auto p-3 bg-orange-50 flex justify-between items-center font-semibold text-sm sm:text-base uppercase">
         {buy ? (
           <p>Explore</p>
         ) : (
@@ -53,7 +57,7 @@ const Eventcard = ({ event }) => {
         {buy ? (
           <p className="cursor-pointer">Join Now</p>
         ) : (
-          <p className="text-primary cursor-pointer">Buy Now</p>
+          <p className="text-primary cursor-pointer" onClick={() => setBuy(!buy)}>Buy Now</p>
         )}
       </div>
     </div>
