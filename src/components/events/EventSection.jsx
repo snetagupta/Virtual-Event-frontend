@@ -55,11 +55,6 @@ const EventSection = () => {
           </div>
         </div>
       </div>
-      <div className='sticky bottom-5 z-50 w-full flex justify-center'>
-        <div className=' bg-white w-fit p-1 rounded-lg shadow-lg border border-primary cursor-pointer hover:shadow-2xl hover:bg-primary hover:text-white ease-in-out duration-200'>
-          <IoFilter className='text-2xl text-primary hover:text-white' />
-        </div>
-      </div>
     </>
   );
 };

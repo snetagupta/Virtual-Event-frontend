@@ -5,11 +5,11 @@ import { Spinner } from '@material-tailwind/react';
 import axios from 'axios';
 import * as yup from 'yup';
 
-// Backend URL from environment
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 const GOOGLE_CALLBACK_URL = import.meta.env.VITE_GOOGLE_CALLBACK_URL;
 
-// Yup validation schema
+
 const validationSchema = yup.object({
   email: yup
     .string()

@@ -1,6 +1,27 @@
 import { Carousel } from '@material-tailwind/react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const CarouselComponent = () => {
+  const navigate = useNavigate();
+  const [promotions, setPromotions] = useState([]);
+
+  const getPromotions = async()=>{
+    try {
+      const {data} = await axios.get(`${BACKEND_URL}/api/promotions`);
+      setPromotions(data.response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getPromotions();
+    console.log(promotions)
+  }, []);
+
   return (
     <div className='flex p-3 md:p-5 gap-5 h-[50vh]'>
     <Carousel
@@ -19,21 +40,17 @@ const CarouselComponent = () => {
         </div>
       )}
     >
-      <img
-        src='https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80'
-        alt='image 1'
-        className='h-full w-full object-cover'
-      />
-      <img
-        src='https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80'
-        alt='image 2'
-        className='h-full w-full object-cover'
-      />
-      <img
-        src='https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80'
-        alt='image 3'
-        className='h-full w-full object-cover'
-      />
+      {
+        promotions?.map((promotion, index) => (
+          <img
+            key={index}
+            src={promotion.image}
+            alt={promotion.title}
+            className='h-full w-full object-cover cursor-pointer'
+            onClick={()=>navigate(`event-details/${promotion._id}`)}
+          />
+        ))
+      }
     </Carousel>
     </div>
   );
