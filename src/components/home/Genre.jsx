@@ -8,11 +8,13 @@ import { IoGameControllerOutline } from 'react-icons/io5';
 import { CiMicrophoneOn } from 'react-icons/ci';
 import { PiMagicWandLight } from 'react-icons/pi';
 import { SiEventstore } from "react-icons/si";
+import { useNavigate } from 'react-router-dom';
 
 
 const GenreCard = ({ Icon, label }) => {
+  const naviate = useNavigate();
   return (
-    <div>
+    <div onClick={() => naviate(`/events?genre=${label.toLowerCase()}`)}>
     <div className="p-5 border-2 rounded-lg border-gray-200 flex flex-col gap-2 items-center transition-all duration-300 transform hover:-translate-y-2 hover:border-primary cursor-pointer hover:bg-[#fff8f0]">
       <div className="text-5xl md:text-7xl">
         <Icon />
