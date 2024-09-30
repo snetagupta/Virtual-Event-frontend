@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
-const filterUrl = import.meta.env.VITE_FILTER_URL; // Replace with your backend URL
-
-const FilterSidebar = () => {
+const FilterSidebar = ({ onFiltersChange }) => {
   // States for each filter option
-  const [category, setCategory] = useState("");
+  const [genre, setGenre] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -14,28 +11,26 @@ const FilterSidebar = () => {
   const [audienceType, setAudienceType] = useState("");
   const [eventType, setEventType] = useState("");
 
-  // Fetch data when any filter changes
+  // Trigger the callback function whenever any filter state changes
   useEffect(() => {
-    const fetchFilteredData = async () => {
-      try {
-        const response = await axios.get(`${filterUrl}?city=${location}&genre=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}&date=${date}`);
-
-        console.log(response.data); // Log the response data
-      } catch (error) {
-        console.error("Error fetching filtered data:", error);
-      }
-    };
-
-    fetchFilteredData();
-  }, [category, location, minPrice, maxPrice]);
-  console.log("date",date);
-
+    onFiltersChange({
+      genre,
+      date,
+      location,
+      minPrice,
+      maxPrice,
+      performer,
+      audienceType,
+      eventType,
+    });
+  }, [genre, date, location, minPrice, maxPrice, performer, audienceType, eventType]);
+console.log(genre);
   return (
     <div className="bg-white p-4 shadow-lg rounded-lg">
-      {/* Category Filter */}
+      {/* genre Filter */}
       <div className="mb-4">
-        <label className="block mb-2 font-medium">Category</label>
-        <select className="w-full p-2 border border-gray-300 rounded-lg" value={category} onChange={(e) => setCategory(e.target.value.toLowerCase())}>
+        <label className="block mb-2 font-medium">All Categories</label>
+        <select className="w-full p-2 border border-gray-300 rounded-lg" value={genre} onChange={(e) => setGenre(e.target.value)}>
           <option value="">All Categories</option>
           <option value="music">Music</option>
           <option value="sports">Sports</option>
@@ -67,9 +62,9 @@ const FilterSidebar = () => {
         </div>
       </div>
 
-      {/* Performer Search */}
+      {/* Performer Filter */}
       <div className="mb-4">
-        <label className="block mb-2 font-medium">Search by Performer</label>
+        <label className="block mb-2 font-medium">Performer</label>
         <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter performer's name" value={performer} onChange={(e) => setPerformer(e.target.value)} />
       </div>
 
@@ -90,30 +85,10 @@ const FilterSidebar = () => {
         <select className="w-full p-2 border border-gray-300 rounded-lg" value={eventType} onChange={(e) => setEventType(e.target.value)}>
           <option value="">All Types</option>
           <option value="virtual">Virtual</option>
-          <option value="onsite">On-site</option>
-          <option value="hybrid">Hybrid</option>
+          {/* <option value="onsite">On-site</option>
+          <option value="hybrid">Hybrid</option> */}
         </select>
       </div>
-
-      {/* Popularity Filter */}
-      {/* <div className="mb-4">
-        <label className="block mb-2 font-medium">Popularity</label>
-        <select className="w-full p-2 border border-gray-300 rounded-lg" value={popularity} onChange={(e) => setPopularity(e.target.value)}>
-          <option value="">All</option>
-          <option value="popular">Most Popular</option>
-          <option value="new">New Arrivals</option>
-        </select>
-      </div> */}
-
-      {/* Ticket Availability Filter */}
-      {/* <div className="mb-4">
-        <label className="block mb-2 font-medium">Ticket Availability</label>
-        <select className="w-full p-2 border border-gray-300 rounded-lg" value={ticketAvailability} onChange={(e) => setTicketAvailability(e.target.value)}>
-          <option value="">Any</option>
-          <option value="available">Available</option>
-          <option value="soldout">Sold Out</option>
-        </select>
-      </div> */}
     </div>
   );
 };
