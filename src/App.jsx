@@ -13,6 +13,7 @@ import Ticket from './components/Ticket';
 import GoogleAuth from './pages/GoogleAuth';
 import EventDetails from './pages/EventDetails';
 import Checkout from './pages/Checkout';
+import MultiStepForm from './createEvent/MultiStepForm';
 
 const App = () => {
   return (
@@ -22,8 +23,8 @@ const App = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/auth/google/callback' element={<GoogleAuth />} />
-        <Route path='/profile' element={<Profile/>} />
-        <Route path='/ticket' element={<Ticket/>} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/ticket' element={<Ticket />} />
 
         {/* Protected routes */}
         <Route
@@ -31,6 +32,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Events />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/create'
+          element={
+            <ProtectedRoute>
+              <MultiStepForm />
             </ProtectedRoute>
           }
         />
