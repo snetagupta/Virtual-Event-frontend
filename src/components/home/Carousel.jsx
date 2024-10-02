@@ -47,7 +47,7 @@ const CarouselComponent = () => {
             src={promotion.image}
             alt={promotion.title}
             className='h-full w-full object-cover cursor-pointer'
-            onClick={()=>navigate(`event-details/${promotion._id}`)}
+            onClick={()=>navigate(`event-details/${promotion.eventId}`)}
           />
         ))
       }
