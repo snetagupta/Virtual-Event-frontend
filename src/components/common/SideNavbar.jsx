@@ -34,7 +34,6 @@ const SideNavbar = ({ open, setOpen }) => {
         <div className='flex flex-col text-lg gap-2'>
         <p className={tagStyle}>Upcoming Events</p>
             <p className={tagStyle}>Today's Events</p>
-          
             <p className={tagStyle}>About us</p>
         </div>
       </div>

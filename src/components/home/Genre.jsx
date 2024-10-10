@@ -12,15 +12,18 @@ import { useNavigate } from 'react-router-dom';
 
 
 const GenreCard = ({ Icon, label }) => {
-  const naviate = useNavigate();
+   const handleGenreClick = () => {
+     navigate(`/events?genre=${encodeURIComponent(label.toLowerCase())}`); // Convert label to lowercase
+   };
+  const navigate = useNavigate();
   return (
-    <div onClick={() => naviate(`/events?genre=${label.toLowerCase()}`)}>
-    <div className="p-5 border-2 rounded-lg border-gray-200 flex flex-col gap-2 items-center transition-all duration-300 transform hover:-translate-y-2 hover:border-primary cursor-pointer hover:bg-[#fff8f0]">
-      <div className="text-5xl md:text-7xl">
-        <Icon />
+    <div onClick={handleGenreClick}>
+      <div className="p-5 border-2 rounded-lg border-gray-200 flex flex-col gap-2 items-center transition-all duration-300 transform hover:-translate-y-2 hover:border-primary cursor-pointer hover:bg-[#fff8f0]">
+        <div className="text-5xl md:text-7xl">
+          <Icon />
+        </div>
+        <p className="text-lg md:text-xl">{label}</p>
       </div>
-      <p className="text-lg md:text-xl">{label}</p>
-    </div>
     </div>
   );
 };
@@ -31,11 +34,11 @@ const Genre = () => {
   const genres = [
     { Icon: GrWorkshop, label: 'Workshops' },
     { Icon: CiMicrophoneOn, label: 'Podcasts' },
-    { Icon: IoSchoolOutline, label: 'Courses' },
+    { Icon: IoSchoolOutline, label: 'Education' },
     { Icon: RiMentalHealthLine, label: 'Mental Health' },
     { Icon: MdOutlineTheaterComedy, label: 'Comedy' },
-    { Icon: FaRegLaughSquint, label: 'Humor' },
-    { Icon: IoGameControllerOutline, label: 'Games' },
+    { Icon: FaRegLaughSquint, label: 'Music' },
+    { Icon: IoGameControllerOutline, label: 'Sports' },
     { Icon: PiMagicWandLight, label: 'Magic' },
   ];
 

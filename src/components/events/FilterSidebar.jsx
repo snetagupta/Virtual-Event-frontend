@@ -1,42 +1,63 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const FilterSidebar = ({ onFiltersChange }) => {
-  // States for each filter option
-  const [genre, setGenre] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+
+  // Capture 'genre' from the query parameter
+  const defaultGenre = searchParams.get("genre") || "";
+
+  const [genre, setGenre] = useState(defaultGenre);
   const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
+  const [locationState, setLocationState] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [performer, setPerformer] = useState("");
   const [audienceType, setAudienceType] = useState("");
   const [eventType, setEventType] = useState("");
 
-  // Trigger the callback function whenever any filter state changes
+  useEffect(() => {
+    setGenre(defaultGenre);
+  }, [location.search]);
+
+  useEffect(() => {
+    if (genre) {
+      navigate(`/events?genre=${genre.toLowerCase()}`);
+    }
+  }, [genre, navigate]);
+
   useEffect(() => {
     onFiltersChange({
       genre,
       date,
-      location,
+      location: locationState,
       minPrice,
       maxPrice,
       performer,
       audienceType,
       eventType,
     });
-  }, [genre, date, location, minPrice, maxPrice, performer, audienceType, eventType]);
-console.log(genre);
+  }, [genre, date, locationState, minPrice, maxPrice, performer, audienceType, eventType]);
+
+  console.log("genre is", genre);
+
   return (
     <div className="bg-white p-4 shadow-lg rounded-lg">
-      {/* genre Filter */}
+      {/* Genre Filter */}
       <div className="mb-4">
         <label className="block mb-2 font-medium">All Categories</label>
         <select className="w-full p-2 border border-gray-300 rounded-lg" value={genre} onChange={(e) => setGenre(e.target.value)}>
           <option value="">All Categories</option>
           <option value="music">Music</option>
           <option value="sports">Sports</option>
-          <option value="tech">Tech</option>
-          <option value="comedy">Comedy</option>
+          <option value="workshop">Workshop</option>
+          <option value="podcast">Podcast</option>
           <option value="education">Education</option>
+          <option value="mentalHealth">Mental Health</option>
+          <option value="Magic">Magic</option>
+          <option value="comedy">Comedy</option>
         </select>
       </div>
 
@@ -49,7 +70,7 @@ console.log(genre);
       {/* Location Filter */}
       <div className="mb-4">
         <label className="block mb-2 font-medium">Location</label>
-        <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter location" value={location} onChange={(e) => setLocation(e.target.value)} />
+        <input type="text" className="w-full p-2 border border-gray-300 rounded-lg" placeholder="Enter location" value={locationState} onChange={(e) => setLocationState(e.target.value)} />
       </div>
 
       {/* Price Range Filter */}
@@ -85,8 +106,6 @@ console.log(genre);
         <select className="w-full p-2 border border-gray-300 rounded-lg" value={eventType} onChange={(e) => setEventType(e.target.value)}>
           <option value="">All Types</option>
           <option value="virtual">Virtual</option>
-          {/* <option value="onsite">On-site</option>
-          <option value="hybrid">Hybrid</option> */}
         </select>
       </div>
     </div>

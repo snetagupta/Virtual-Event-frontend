@@ -1,13 +1,15 @@
-import { useState ,useEffect} from 'react';
-import Eventcard from './EventCard';
-import FilterSidebar from './FilterSidebar';
-import { events } from '../../data/events';
-import { IoFilter } from 'react-icons/io5';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import Eventcard from "./EventCard";
+import FilterSidebar from "./FilterSidebar";
+import { events } from "../../data/events";
+import { IoFilter } from "react-icons/io5";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const filterUrl = "http://localhost:8000/api/event/filter";
 
 const EventSection = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredEvents, setFilteredEvents] = useState(events);
   const [filters, setFilters] = useState({}); // Store filter data
@@ -23,7 +25,7 @@ const EventSection = () => {
       try {
         // Build the query string based on the filters
         const queryParams = new URLSearchParams(filters).toString();
-        console.log(queryParams);
+        console.log(`${filterUrl}?${queryParams}`);
         const response = await axios.get(`${filterUrl}?${queryParams}`);
         setFilteredEvents(response.data.data); // Update the filtered events
       } catch (error) {
