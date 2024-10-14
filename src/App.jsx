@@ -52,7 +52,7 @@ const App = () => {
           }
         />
         <Route
-          path='/checkout'
+          path='/checkout/:id'
           element={
             <ProtectedRoute>
               <Checkout />
