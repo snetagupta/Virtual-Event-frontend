@@ -22,9 +22,9 @@ const CreateEvent = () => {
           <button className='px-2 py-1 bg-black text-white rounded-md'>
             Upload Image
           </button>
-          {/* <button className='flex items-center justify-center gap-1 px-2 py-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-md'>
+          <button className='flex items-center justify-center gap-1 px-2 py-1 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-md'>
             Generate Image <SiGooglegemini />
-          </button> */}
+          </button>
         </div>
       </div>
 
