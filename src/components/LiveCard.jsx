@@ -71,8 +71,8 @@ const LiveCard = () => {
       <div className="flex items-center gap-5 px-3 py-2 mb-10 ml-3">
         < MdLiveTv className='text-4xl' />
         <div>
-      <p className=" text-xl sm:text-2xl font-semibold text-gray-800" >The Best of Live Events</p>
-      <p className='text-base text-gray-600'>Watch new movies at home every Friday</p>
+      <p className=" text-xl sm:text-2xl font-semibold text-gray-800" >Trending..</p>
+      <p className='text-base text-gray-600'>Watch popular shows loved by everyone</p>
       </div>
       </div>
       <div className="relative">

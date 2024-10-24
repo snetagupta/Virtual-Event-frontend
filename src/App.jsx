@@ -14,21 +14,25 @@ import GoogleAuth from './pages/GoogleAuth';
 import EventDetails from './pages/EventDetails';
 import Checkout from './pages/Checkout';
 import MultiStepForm from './createEvent/MultiStepForm';
+import PastEvents from './pages/PastEvents';
+import AboutUs from './pages/AboutUs';
+import CreateEvent from './components/forms/CreateEvent';
+import CreateEventPage from './pages/CreateEventPage';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/auth/google/callback' element={<GoogleAuth />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/ticket' element={<Ticket />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/auth/google/callback" element={<GoogleAuth />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/ticket" element={<Ticket />} />
 
         {/* Protected routes */}
         <Route
-          path='/event'
+          path="/event"
           element={
             <ProtectedRoute>
               <Events />
@@ -36,7 +40,7 @@ const App = () => {
           }
         />
         <Route
-          path='/create'
+          path="/create"
           element={
             <ProtectedRoute>
               <MultiStepForm />
@@ -44,7 +48,7 @@ const App = () => {
           }
         />
         <Route
-          path='/event-details/:id'
+          path="/event-details/:id"
           element={
             <ProtectedRoute>
               <EventDetails />
@@ -52,7 +56,7 @@ const App = () => {
           }
         />
         <Route
-          path='/checkout/:id'
+          path="/checkout/:id"
           element={
             <ProtectedRoute>
               <Checkout />
@@ -60,7 +64,7 @@ const App = () => {
           }
         />
         <Route
-          path='/dashboard'
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <Dashboard />
@@ -68,7 +72,7 @@ const App = () => {
           }
         />
         <Route
-          path='/events'
+          path="/events"
           element={
             <ProtectedRoute>
               <Event />
@@ -76,10 +80,35 @@ const App = () => {
           }
         />
         <Route
-          path='/contact'
+          path="/contact"
           element={
             <ProtectedRoute>
               <EventContact />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/past-events"
+          element={
+            <ProtectedRoute>
+              <PastEvents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <ProtectedRoute>
+              <AboutUs />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/create-event"
+          element={
+            <ProtectedRoute>
+             <CreateEventPage/>
             </ProtectedRoute>
           }
         />

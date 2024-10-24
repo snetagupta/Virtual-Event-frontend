@@ -62,7 +62,10 @@ const EventActions = ({ event }) => {
         <button
           className="text-white bg-primary px-4 py-2 rounded-md transition duration-200"
           onClick={() => {
-            navigate("/checkout/" + id);
+              console.log("on pageonly",event); 
+            navigate("/checkout/" + id, {
+              state:{ event: JSON.parse(JSON.stringify(event)) },
+            });
           }}>
           Buy Now
         </button>

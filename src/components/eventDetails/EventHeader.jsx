@@ -1,27 +1,8 @@
+
 import React from 'react';
 
+
 const EventHeader = ({event}) => {
-  const formatDate = (timestamp) => { 
-     
-      const dateTime = new Date(timestamp);
-
-      const formattedDate = dateTime.toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      });
-
-      const formattedTime = dateTime.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
-      });
-
-    const formattedDateTime = `${formattedDate}`;
-    return formattedDateTime;
-  }
-
-
   return (
     <section className="flex flex-col-reverse md:flex-row items-center justify-between mt-10 mx-4 md:mx-16 relative">
       <div className="w-full md:w-[45%] mt-6 md:mb-0">
@@ -46,3 +27,22 @@ const EventHeader = ({event}) => {
 };
 
 export default EventHeader;
+
+export const formatDate = (timestamp) => {
+   const dateTime = new Date(timestamp);
+
+   const formattedDate = dateTime.toLocaleDateString("en-GB", {
+     day: "numeric",
+     month: "short",
+     year: "numeric",
+   });
+
+   const formattedTime = dateTime.toLocaleTimeString("en-US", {
+     hour: "numeric",
+     minute: "numeric",
+     hour12: true,
+   });
+
+   const formattedDateTime = `${formattedDate}`;
+   return formattedDateTime;
+ };
